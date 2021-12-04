@@ -1,0 +1,46 @@
+{% extends 'meaning/basic.html' %}
+
+{% block title%}result{% endblock %}
+
+{% block body %}
+
+
+
+<div class="container">
+
+<h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Required results are:</h2>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Sr.No</th>
+        <th scope="col">word</th>
+        <th scope="col">meanings</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+        {% with i=0 %} 
+        {% for key, values in final.items %}
+         <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{key}}</td>
+            <td>{{values}}</td>
+         </tr>
+        
+        {% endfor %}
+        {% endwith %}
+      
+    </tbody>
+  </table>
+
+</div>
+  
+  
+
+
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,303 @@
+{% extends 'meaning/basic.html' %}
+
+{% block title%}index{% endblock %}
+
+{%block css%}
+
+img{
+width: 165px;
+height: 175px;
+padding-left:20px;
+}
+
+.top{
+margin-top:20px;
+
+
+}
+.trans{
+margin-top:100px;
+padding-left:10%;
+
+}
+#transhead{
+margin-top:40px;
+padding-left:10%;
+
+}
+
+h3{
+font-family:georgia;
+}
+h5{
+font-family:georgia;
+}
+
+h2{
+font-family:cambria;
+}
+
+#labol{
+font-weight:bold;
+}
+
+
+{%endblock%}
+
+{% block body %}
+
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 style="font-family: cursive;" class="display-3">Welcome to Study ZONE!</h1>
+      <p style="font-family:Georgia, 'Times New Roman', Times, serif;">
+        <b>Meaning vs. Translation</b><br>
+
+        The key differences between interpretation and translation are found in each service's medium and skill set:
+        interpreters translate spoken language orally, while translators translate the written word. Both require deep
+        cultural and linguistic understanding, expert knowledge of subject matter, and the ability to communicate
+        clearly.
+
+        While the terms are often cited interchangeably, understanding the distinctions between these closely related
+        linguistic fields is essential when choosing the service you need.
+      </p>
+      <p><a class="btn btn-warning btn-lg" href="/meaning/about/" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" style="width: 30rem;height: 18rem; background-color: gray;">
+          <div class="card-body">
+            <form action="/meaning/transfield/" method="POST">{% csrf_token %}
+              <h5 class="card-title"><b>Language(input)</b> </h5>
+
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1"><b>Enter Here:</b> </label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                  style="resize: none;height: 100px; background-color: lightcyan;" name="text" placeholder="Input Text Here...."></textarea>
+              </div>
+
+              <button type="submit" class="mx-3 padlef btn btn-primary">Result</button>
+              <select id="mySelect" name="language" style="font-family: Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                <option value="hi">Hindi</option>
+                <option value="mr">Marathi</option>
+                <option value="en">English</option>
+                <option value="ar">arabic</option>
+                <option value="fr">french</option>
+                <option value="de">german</option>
+                <option value="el">greek</option>
+                <option value="it">italian</option>
+                <option value="ja">japanese</option>
+                <option value="ko">korean</option>
+                <option value="ru">russian</option>
+                <option value="sv">swedish</option>
+                <option value="la">latin</option>
+
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card" style="width: 30rem;height: 18rem; background-color: lightcyan;">
+          <div class="card-body">
+            <h5 class="card-title"><b>Language(output)</b> </h5>
+
+            <p class="card-text">
+
+            <div style="overflow-y: scroll; height: 185px;width: auto;">
+              {% for key, values in final.items %}
+
+              <p>{{values}}</p>
+              <form action="/meaning/pro/" method="POST" name="jjjj">{% csrf_token %}
+                <input name="pron" value="{{values}}" type="hidden">
+                <input name="key" value="{{key}}" type="hidden">
+                <button type="submit" class="mx-3 padlef btn btn-primary">Pronaunce</button>
+
+
+                {% endfor %}
+
+              </form>
+            </div>
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br>
+    <br>
+    <hr>
+    <div class="row">
+      <div class="col-md-4">
+
+        <h3>Upload DocX here..</h3>
+        <img src="https://i2.wp.com/www.softwarert.com/wp-content/uploads/word-2013-icon.png?resize=256%2C253&ssl=1"
+          alt="">
+        <p>
+        <form method="POST" action="/meaning/result/">{% csrf_token %}
+          <label for="myfile" id="labol">Drop your file here:</label>
+          <input type="file" id="doc" name="doc"><br><br>
+
+          <hr>
+          <h5>Meaning with details:</h5>
+          <div class="row">
+            <button type="submit" class="mx-3 padlef btn btn-primary">Result</button>
+          </div>
+        </form>
+        </p>
+
+      </div>
+      <div class="col-md-4">
+        <h3>Upload pptX here..</h3>
+
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Microsoft_PowerPoint_2013_logo.svg/1043px-Microsoft_PowerPoint_2013_logo.svg.png"
+          alt="">
+        <p>
+        <form method="POST" action="/meaning/result/">{% csrf_token %}
+          <label for="myfile" id="labol">Drop your file here:</label>
+          <input type="file" id="ppt" name="ppt"><br><br>
+          <hr>
+          <h5>Meaning with details:</h5>
+          <div class="row">
+            <button type="submit" class="mx-3 padlef btn btn-warning">Result</button>
+
+          </div>
+        </form>
+        </p>
+
+      </div>
+      <div class="col-md-4" >
+        <h3 >Upload pdf here..</h3>
+        
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/833px-PDF_file_icon.svg.png"
+          alt="...">
+        
+        <p >
+        <form method="POST" action="/meaning/result/" >{% csrf_token %}
+          <label for="myfile" id="labol" >Drop your file here:</label>
+          <input type="file" id="pdf" name="pdf" ><br><br>
+          <hr>
+          <h5 >Meaning with details:</h5>
+          <div class="row" >
+            <button type="submit" class="mx-3 padlef btn btn-danger">Result</button>
+
+          </div>
+
+        </form> 
+      </p>
+
+      </div>
+    </div>
+
+    <hr>
+
+    <h2 id="transhead">Translation(Wordwise) makes it easy....</h2>
+    <div class="row trans">
+
+
+      <div class="col-md-6">
+        <h3>Hindi(hi)</h3>
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="">
+        <p>
+        <form method="POST" action="/meaning/result/">{% csrf_token %}
+          <label for="myfile" id="labol">Drop your file here:</label><br>
+          <input type="file" id="hindi" name="hindi"><br><br>
+          <hr>
+          <div class="row">
+            <button type="submit" class="mx-3 padlef btn btn-warning">Translate</button>
+
+          </div>
+        </form>
+        </p>
+
+      </div>
+
+      <div class="col-md-6">
+        <h3>Marathi(mr)</h3>
+
+        <img
+          src="https://thumbs.dreamstime.com/b/multiple-file-document-icon-logo-design-element-multiple-file-document-icon-logo-design-element-white-background-122728126.jpg"
+          alt="">
+        <p>
+        <form method="POST" action="/meaning/result/">{% csrf_token %}
+          <label for="myfile" id="labol">Drop your file here:</label><br>
+          <input type="file" id="Marathi" name="Marathi"><br><br>
+          <hr>
+          <div class="row">
+            <button type="submit" class="mx-3 padlef btn btn-warning">Translate</button>
+
+          </div>
+        </form>
+        </p>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+
+    <h2 id="transhead">Translation the complete one....</h2>
+    <div class="row trans">
+
+
+      <div class="col-md-6">
+        <h3>Hindi</h3>
+        <img src="https://lh3.googleusercontent.com/x2k52t094pOUlGVixA7Ezd8vh8kG8Q2FUK4UxlWTf7eclWrfDeJbrAxjR72vhyLypA"
+          alt="">
+        <p>
+        <form method="POST" action="/meaning/result/">{% csrf_token %}
+          <label for="myfile" id="labol">Drop your file here:</label><br>
+          <input type="file" id="chindi" name="Comphindi"><br><br>
+          <hr>
+          <div class="row">
+            <button type="submit" class="mx-3 padlef btn btn-primary">Translate</button>
+
+          </div>
+        </form>
+        </p>
+
+      </div>
+
+      <div class="col-md-6">
+        <h3>Marathi</h3>
+
+        <img src="https://cdn.soft112.com/english-to-marathi-translator/00/00/0G/1R/00000G1R81/pad_screenshot.jpg"
+          alt="">
+        <p>
+        <form method="POST" action="/meaning/result/">{% csrf_token %}
+          <label for="myfile" id="labol">Drop your file here:</label><br>
+          <input type="file" id="cMarathi" name="CompMarathi"><br><br>
+          <hr>
+          <div class="row">
+            <button type="submit" class="mx-3 padlef btn btn-primary">Translate</button>
+
+          </div>
+        </form>
+        </p>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+
+
+
+  </div> <!-- /container -->
+
+</main>
+{% endblock %}
